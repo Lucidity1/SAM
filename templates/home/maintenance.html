@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+{% load staticfiles%}
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EAMS | Maintenance Data</title>
+
+
+	<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+	<link href="{% static "font-awesome/css/font-awesome.css" %}" rel="stylesheet">
+
+	<link href="{% static "css/animate.css" %}" rel="stylesheet">
+	<link href="{% static "css/style.css" %}" rel="stylesheet">
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+		{% include 'home/nav.html' %}
+		
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+		            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome to EAMS.</span>
+                </li>
+ 
+
+
+                <li>
+                    <a href="{% url 'login:logout' %}">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+        </div>
+		
+		<div class="row  border-bottom white-bg dashboard-header">
+			<div class="col-md-9">
+				<h2>Maintenance Data</h2>
+				<small>There are {{entries_no}} maintenance data entries in database.</small>
+				<br><br>
+				<small>Of which,<br> {{cm_no}} ({{cm_percentage}}%) are corrective maintenance entries.</small>
+				<br>
+				<small>{{pm_no}} ({{pm_percentage}}%) are preventive maintenance entries.</small>
+			</div>
+
+			<div class="col-md-3">
+			
+			            <div class="statistic-box">
+                        <h4>
+                            Work Orders Breakdown by Type
+                        </h4>
+
+                            <div class="row text-center">
+								<div class="flot-chart">
+									<div class="flot-chart-pie-content" id="flot-pie-chart"></div>
+								</div>
+                            </div>
+
+                        </div>
+
+			</div>
+		</div>
+		
+		<div class="wrapper wrapper-content animated fadeIn">
+
+			<div class="row">
+			    <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1">CM</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2">PM</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                    <strong>Top CM Assets</strong>
+									<br>	<br>								
+									<table class="table table-bordered">
+										<thead>
+										<tr>
+											<th>Asset Number</th>
+											<th>Work Orders</th>
+										</tr>
+										</thead>
+										<tbody>
+									
+									{%if freq_filtered %}
+										{%for item in freq_filtered %}
+											<tr>
+												<td>{{item.0}}</td>
+												<td>
+												{%for sublist in item.1%}
+													{{sublist}}
+												{%endfor%}
+												</td>
+											</tr>
+										{%endfor%}
+									{%endif%}
+									
+										</tbody>
+									</table>
+
+									{%if plot_data %}
+										{%for item in plot_data %}
+										
+										<div class="col-lg-6">
+											<div class="ibox float-e-margins">
+												<div class="ibox-title">
+													<h5>{{plot_data.0.0}}</h5>
+												</div>
+												<div class="ibox-content">
+
+													<div class="flot-chart">
+														<div class="flot-chart-content" id="flot-line-chart-{{ forloop.counter }}"  style="width: 450px; height: 200px;"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										{%endfor%}
+									{%endif%}
+
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                    <strong>Donec quam felis</strong>
+
+                                    <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+                                        and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+
+                                    <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
+                                        sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+			</div>
+
+		</div>
+
+
+			
+            <div class="footer">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2017
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="{% static "js/jquery-2.1.1.js"%}"></script>
+	<script src="{% static "js/bootstrap.min.js"%}"></script>
+	<script src="{% static "js/plugins/metisMenu/jquery.metisMenu.js"%}"></script>
+	<script src="{% static "js/plugins/slimscroll/jquery.slimscroll.min.js"%}"></script>
+
+	<script src="{% static "js/inspinia.js"%}"></script>
+	<script src="{% static "js/plugins/pace/pace.min.js"%}"></script>
+	
+	<!-- Flot -->
+    <script src="{% static "js/plugins/flot/jquery.flot.js"%}"></script>
+	<script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js"%}"></script>
+	<script src="{% static "js/plugins/flot/jquery.flot.resize.js"%}"></script>
+	<script src="{% static "js/plugins/flot/jquery.flot.pie.js"%}"></script>
+	<script src="{% static "js/plugins/flot/jquery.flot.time.js"%}"></script>
+
+	<script>
+	//Flot Pie Chart
+$(function() {
+
+    var data = [{
+        label: "Others",
+        data: {{others_no}},
+    }, {
+        label: "CM",
+        data: {{cm_no}},
+    }, {
+        label: "PM",
+        data: {{pm_no}},
+    }, {
+        label: "TEST",
+        data: {{test_no}},
+    }, {
+        label: "OH",
+        data: {{oh_no}},
+    }];
+
+    var plotObj = $.plot($("#flot-pie-chart"), data, {
+        series: {
+            pie: {
+                show: true,
+				radius: 1,
+				label: {
+					show: true,
+					radius: 2/3,
+					formatter: labelFormatter,
+					threshold: 0.1
+				}
+            }
+        },
+        grid: {
+            hoverable: true
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+            shifts: {
+                x: 20,
+                y: 0
+            },
+            defaultTheme: false
+        },
+		legend: {
+			show: false
+		}
+    });
+
+});
+
+function labelFormatter(label, series) {
+    return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>"
++ label + "<br/>" + Math.round(series.percent) + "%</div>";
+}
+
+$(function() {
+{%if plot_data%}
+	{%for data in plot_data%}
+		var barData = {
+			data: [
+				{%for item in data.1%}
+					[{{item.0}},{{item.1}}],
+				{%endfor%}
+			]
+		};
+		$.plot($("#flot-line-chart-{{forloop.counter}}"), [barData]
+);
+
+
+	{%endfor%}
+{%endif%}
+	});
+	</script>
+
+</body>
+
+</html>

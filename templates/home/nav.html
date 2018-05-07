@@ -1,0 +1,32 @@
+{% load staticfiles%} 
+ <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> 
+							<span>
+                            <img alt="image" class="img-circle" src="{% static "images/general_user.png"%}" style="background-color:white;" height="42" width="42" />
+                             </span>
+
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{request.user.username}}</strong>
+							</a>
+                        </div>
+                        <div class="logo-element">
+                            SAM
+                        </div>
+                    </li>
+                    <li
+					{% if loc == "index"%}
+						class="active"
+					{% endif %}
+					>
+                        <a href="{%  url 'home:index' %}"><i class="fa fa-diamond"></i> <span class="nav-label">Dashboard</span></a>
+                    </li>
+					
+ 
+
+                </ul>
+
+            </div>
+        </nav>
