@@ -5,7 +5,7 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element"> 
 							<span>
-                            <img alt="image" class="img-circle" src="{% static "images/general_user.png"%}" style="background-color:white;" height="42" width="42" />
+                            <img alt="image" class="img-square" src="{% static "images/MAS_400x400.jpg"%}" style="background-color:black;" height="42" width="42" />
                              </span>
 
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -21,9 +21,24 @@
 						class="active"
 					{% endif %}
 					>
-                        <a href="{%  url 'home:index' %}"><i class="fa fa-diamond"></i> <span class="nav-label">Dashboard</span></a>
+                        <a href="{%  url 'home:index' %}"><i class="fa fa-database"></i> <span class="nav-label">Records</span></a>
                     </li>
 					
+					<li
+					{% if loc == "browse"%}
+						class="active"
+					{% endif %}
+					>
+                        <a href="{%  url 'home:browse' %}"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Browse</span></a>
+                    </li>
+					
+					<li
+					{% if loc == "research"%}
+						class="active"
+					{% endif %}
+					>
+                        <a href="{%  url 'home:index' %}"><i class="fa fa-flask"></i> <span class="nav-label">Research</span></a>
+                    </li>
  
 
                 </ul>
